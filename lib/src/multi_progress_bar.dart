@@ -1,13 +1,21 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:multi_progress_bar/model/multi_progress_bar_model.dart';
+
+import 'progress_item_model.dart';
 
 class MultiProgressBar extends StatelessWidget {
+  ///[enableLegends] will control the visibility of the legends
   final bool enableLegends;
+
+  /// [progressList] is a list of progresses going to be used in progress bar
   final List<ProgressItem> progressList;
-  final double deviceWidth = PlatformDispatcher.instance.views.first.physicalSize.width /
-      PlatformDispatcher.instance.views.first.devicePixelRatio;
+
+  /// [deviceWidth] used to get the total width of the device
+  /// Helpful to determine the total width of the bar.
+  final double deviceWidth =
+      PlatformDispatcher.instance.views.first.physicalSize.width /
+          PlatformDispatcher.instance.views.first.devicePixelRatio;
 
   MultiProgressBar({
     super.key,
@@ -19,7 +27,8 @@ class MultiProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Visibility(
       visible: checkValidProgressValues(),
-      replacement: const Text("Please enter valid progress\nTotal progress can't be greater than 100 %"),
+      replacement: const Text(
+          "Please enter valid progress\nTotal progress can't be greater than 100 %"),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -103,11 +112,13 @@ class MultiProgressBar extends StatelessWidget {
       children.add(
         Visibility(
           visible: i > 0,
-          replacement:
-              _buildSegment('${progressItem.progress * 100}', progressItem.progressColor, progressItem.progress),
+          replacement: _buildSegment('${progressItem.progress * 100}',
+              progressItem.progressColor, progressItem.progress),
           child: Padding(
-            padding: EdgeInsets.only(left: deviceWidth * (sumUpToIndex(i) - (0.07 * i))),
-            child: _buildSegment('${progressItem.progress * 100}', progressItem.progressColor, progressItem.progress),
+            padding: EdgeInsets.only(
+                left: deviceWidth * (sumUpToIndex(i) - (0.07 * i))),
+            child: _buildSegment('${progressItem.progress * 100}',
+                progressItem.progressColor, progressItem.progress),
           ),
         ),
       );
@@ -131,11 +142,13 @@ class MultiProgressBar extends StatelessWidget {
 
   bool checkValidProgressValues() {
     Object sum = progressList.isNotEmpty
-        ? progressList.reduce((a, b) => ProgressItem(progress: a.progress + b.progress, progressColor: Colors.black))
+        ? progressList.reduce((a, b) => ProgressItem(
+            progress: a.progress + b.progress, progressColor: Colors.black))
         : 0.0;
     ProgressItem progressItem = sum as ProgressItem;
 
-    bool isValidProgress = progressItem.progress != 0 && progressItem.progress <= 1;
+    bool isValidProgress =
+        progressItem.progress != 0 && progressItem.progress <= 1;
     if (!isValidProgress) {
       ///
     }

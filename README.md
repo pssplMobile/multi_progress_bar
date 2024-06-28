@@ -11,25 +11,50 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Multi_Progress_bar is a Flutter library for simple and fast building of a progress bar with multiple
+progress.
 
 ## Features
 
-A package to display multiple values on a vertical bar using progress indicators.
+- Display multiple values on a vertical bar using progress indicators.
+- Null safety
+- Built on Dart
 
 ## Getting started
 
-List prerequisites and provide or point to information on how to
-start using the package.
+To start, import the dependency in your code:
+
+```dart
+import 'package:multi_progress_bar/multi_progress_bar.dart';
+```
+
+Next, to use it :
+
+```dart
+MultiProgressBar(
+    progressList: [
+    ProgressItem(title: 'Type A', progress: 0.7, progressColor: Colors.orange),
+    ProgressItem(title: 'Type B', progress: 0.1, progressColor: Colors.blue),
+    ProgressItem(title: 'Type C', progress: 0.2, progressColor: Colors.yellow),
+  ],
+)
+```
+Depending on your requirements you may want to control some things. The following options are available:
+
+| Property                  | Type              | Description                                                                                 |
+|---------------------------|-------------------|---------------------------------------------------------------------------------------------|
+| `enableLegends`           | bool              | Controls the legends will be enabled or disabled.                                           |
 
 ## Usage
 
-Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
 ```dart
-const like = 'sample';
+  MultiProgressBar(
+    progressList: [
+    ProgressItem(title: 'Type A', progress: 0.7, progressColor: Colors.orange),
+    ProgressItem(title: 'Type B', progress: 0.1, progressColor: Colors.blue),
+    ProgressItem(title: 'Type C', progress: 0.2, progressColor: Colors.yellow),
+  ],
+)
 ```
 
 ## Additional information

@@ -1,7 +1,7 @@
 name: multi_progress_bar
-description: "A new Flutter project."
-version: 0.0.1
-homepage:
+description: "A package to display multiple values on a vertical bar using progress indicators."
+version: 0.1.0
+homepage: https://github.com/pssplMobile/multi_progress_bar.git
 
 environment:
   sdk: '>=3.4.3 <4.0.0'

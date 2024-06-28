@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:multi_progress_bar/model/progress_model.dart';
+import 'package:multi_progress_bar/model/multi_progress_bar_model.dart';
 
 class MultiProgressBar extends StatelessWidget {
   final bool enableLegends;

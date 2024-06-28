@@ -26,7 +26,7 @@ progress.
 To start, import the dependency in your code:
 
 ```dart
-import 'package:multi_progress_bar/multi_progress_bar.dart';
+import 'package:multi_progress_bar/progress_bar.dart';
 ```
 
 Next, to use it :

@@ -9,3 +9,8 @@
 ## 0.1.1
 
 * - Documentation Improved
+
+## 0.1.2
+
+* - Preview Added
+  - Example Added 

@@ -1,86 +1,67 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:multi_progress_bar/model/progress_model.dart';
 
-class MultiProgressBar extends StatefulWidget {
-  final double progressA;
-  final double progressB;
-  final double progressC;
+class MultiProgressBar extends StatelessWidget {
+  final bool enableLegends;
+  final List<ProgressItem> progressList;
+  final double deviceWidth = PlatformDispatcher.instance.views.first.physicalSize.width /
+      PlatformDispatcher.instance.views.first.devicePixelRatio;
 
-  const MultiProgressBar({
+  MultiProgressBar({
     super.key,
-    required this.progressA,
-    required this.progressB,
-    required this.progressC,
+    required this.progressList,
+    this.enableLegends = false,
   });
 
   @override
-  State<MultiProgressBar> createState() => _MultiProgressBarState();
-}
-
-class _MultiProgressBarState extends State<MultiProgressBar> {
-  double orangePerc = 0;
-  double lightBluePerc = 0;
-  double yellowPerc = 0;
-
-  @override
-  void initState() {
-    orangePerc = widget.progressA;
-    lightBluePerc = widget.progressB;
-    yellowPerc = widget.progressC;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Stack(
-          children: [
-            _buildSegment('${orangePerc * 100} %', Colors.orange, orangePerc),
-            Padding(
-              padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * (orangePerc - 0.07),
+    return Visibility(
+      visible: checkValidProgressValues(),
+      replacement: const Text("Please enter valid progress\nTotal progress can't be greater than 100 %"),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Stack(children: buildStackChildren()),
+          Visibility(
+            visible: enableLegends,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: buildLegendsChildren(),
               ),
-              child: _buildSegment(
-                  '${lightBluePerc * 100} %', Colors.lightBlue, lightBluePerc),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width *
-                      (orangePerc + lightBluePerc - 0.14)),
-              child: _buildSegment(
-                  '${yellowPerc * 100} %', Colors.yellow, yellowPerc),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildLabel('Local PV', Colors.orange),
-            _buildLabel('Grid renewable', Colors.lightBlue),
-            _buildLabel('Other', Colors.yellow),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildSegment(String text, Color color, double widthFactor) {
-    return Container(
-      width: MediaQuery.of(context).size.width * widthFactor,
-      height: 34,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: const BorderRadius.all(Radius.circular(17)),
-      ),
-      child: Center(
-        child: Text(
-          text,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+    return Tooltip(
+      message: '$text %',
+      triggerMode: TooltipTriggerMode.tap,
+      showDuration: const Duration(milliseconds: 600),
+      child: Container(
+        width: deviceWidth * widthFactor,
+        height: 34,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: const BorderRadius.all(Radius.circular(17)),
+        ),
+        child: Visibility(
+          visible: double.parse(text) >= 20,
+          child: Center(
+            child: Text(
+              '$text %',
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
       ),
@@ -102,5 +83,62 @@ class _MultiProgressBarState extends State<MultiProgressBar> {
         ),
       ],
     );
+  }
+
+  List<Widget> buildLegendsChildren() {
+    List<Widget> children = [];
+    for (int i = 0; i < progressList.length; i++) {
+      ProgressItem progressItem = progressList[i];
+      children.add(
+        _buildLabel(progressItem.title ?? '', progressItem.progressColor),
+      );
+    }
+    return children;
+  }
+
+  List<Widget> buildStackChildren() {
+    List<Widget> children = [];
+    for (int i = 0; i < progressList.length; i++) {
+      ProgressItem progressItem = progressList[i];
+      children.add(
+        Visibility(
+          visible: i > 0,
+          replacement:
+              _buildSegment('${progressItem.progress * 100}', progressItem.progressColor, progressItem.progress),
+          child: Padding(
+            padding: EdgeInsets.only(left: deviceWidth * (sumUpToIndex(i) - (0.07 * i))),
+            child: _buildSegment('${progressItem.progress * 100}', progressItem.progressColor, progressItem.progress),
+          ),
+        ),
+      );
+    }
+    return children;
+  }
+
+  double sumUpToIndex(int index) {
+    if (index < 0 || index >= progressList.length) {
+      throw RangeError('Index out of range');
+    }
+
+    double sum = 0;
+    for (int i = 0; i <= index; i++) {
+      if (i > 0) {
+        sum += progressList[i - 1].progress;
+      }
+    }
+    return sum;
+  }
+
+  bool checkValidProgressValues() {
+    Object sum = progressList.isNotEmpty
+        ? progressList.reduce((a, b) => ProgressItem(progress: a.progress + b.progress, progressColor: Colors.black))
+        : 0.0;
+    ProgressItem progressItem = sum as ProgressItem;
+
+    bool isValidProgress = progressItem.progress != 0 && progressItem.progress <= 1;
+    if (!isValidProgress) {
+      ///
+    }
+    return isValidProgress;
   }
 }

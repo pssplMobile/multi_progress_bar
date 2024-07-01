@@ -17,3 +17,7 @@
 ## 0.1.7
 
 * - Preview Added
+
+## 0.1.8
+
+* - Documentation Improved

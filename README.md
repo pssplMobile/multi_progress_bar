@@ -13,7 +13,7 @@ and the Flutter guide for
 
 Multi_Progress_bar is a Flutter library for simple and fast building of a progress bar with multiple
 progress.
-<img src="https://drive.google.com/file/d/113jUW3oTtsZMd5plAN5RAuzkBtfX4IaN/view">
+![](https://github.com/pssplMobile/pssplAssets/blob/main/multi_progress_bar.png)
 
 ## Features
 

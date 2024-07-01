@@ -12,5 +12,8 @@
 
 ## 0.1.2
 
+* - Example Added
+
+## 0.1.6
+
 * - Preview Added
-  - Example Added 

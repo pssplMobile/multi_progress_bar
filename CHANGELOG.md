@@ -21,3 +21,7 @@
 ## 0.1.8
 
 * - Documentation Improved
+
+## 0.1.9
+
+* - Pub Version Added

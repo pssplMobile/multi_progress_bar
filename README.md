@@ -11,7 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 # Multi Progress Bar
-[![pub package](https://img.shields.io/pub/v/google_fonts.svg)](https://pub.dev/packages/multi_progress_bar)
+![Pub Version](https://img.shields.io/pub/v/multi_progress_bar)
 
 A flutter library for simple and fast building of a progress bar with multiple
 progress.

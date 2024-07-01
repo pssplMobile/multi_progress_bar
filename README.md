@@ -10,10 +10,12 @@ For general information about developing packages, see the Dart guide for
 and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
+Multi_Progress_bar
+[![pub package](https://img.shields.io/pub/v/google_fonts.svg)](https://pub.dev/packages/google_fonts)
 
 Multi_Progress_bar is a Flutter library for simple and fast building of a progress bar with multiple
 progress.
-![](https://github.com/pssplMobile/pssplAssets/blob/main/multi_progress_bar.png)
+![](https://raw.githubusercontent.com/pssplMobile/pssplAssets/main/multi_progress_bar.png)
 
 ## Features
 

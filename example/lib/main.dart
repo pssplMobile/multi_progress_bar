@@ -16,9 +16,12 @@ class MyApp extends StatelessWidget {
           child: MultiProgressBar(
             enableLegends: true,
             progressList: [
-              ProgressItem(title: 'Type A', progress: 0.3, progressColor: Colors.orange),
-              ProgressItem(title: 'Type B', progress: 0.4, progressColor: Colors.blue),
-              ProgressItem(title: 'Type C', progress: 0.3, progressColor: Colors.teal),
+              ProgressItem(
+                  title: 'Type A', progress: 0.3, progressColor: Colors.orange),
+              ProgressItem(
+                  title: 'Type B', progress: 0.4, progressColor: Colors.blue),
+              ProgressItem(
+                  title: 'Type C', progress: 0.3, progressColor: Colors.teal),
             ],
           ),
         ),
